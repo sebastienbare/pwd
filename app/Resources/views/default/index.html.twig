@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block li %}
+    {% if session == [] %}
+        <li><a href={{ path('fos_user_security_login') }}>Se connecter</a></li>
+        <li><a href={{ path('fos_user_registration_register') }}>S'inscrire</a></li>
+    {% else %}
+        <li><a href={{ path('fos_user_security_logout') }}>Se déconnecter</a></li>
+        <li><a href={{ path('profile') }}>Profile</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5">
+                    <div class="styled-heading">
+                        <h3>Les séries phares</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for series in serie %}
+                <div class="col-md-4">
+                    <div class="find-place-img_wrap">
+                        <div class="grid">
+                            <figure class="effect-ruby">
+                                <img src="images/{{ series.Image.Source }}" class="img-fluid" alt="{{ series.Image.Alt }}" />
+                                <figcaption>
+                                    <h5><a href={{ path ('fiche',{ 'id': series.id} ) }}>{{ series.Nom }}</a></h5>
+                                    {% for genr in series.Genre %}
+                                        <p><a href={{ path('genre') }}>{{ genr.genre }}</a></p>
+                                    {% endfor %}
+                                    <p><a href={{ path('producteur') }}>{{ series.Producteur.Nom }} {{ series.Producteur.Prenom }}</a></p>
+                                    <p><a href={{ path('acteur') }}>{{ series.Acteur.Nom }} {{ series.Acteur.Prenom }}</a></p>
+                                </figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+{% endblock %}

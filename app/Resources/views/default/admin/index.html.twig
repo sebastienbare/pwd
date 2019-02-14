@@ -1,0 +1,48 @@
+{% extends 'default/admin/base.html.twig' %}
+
+{% block body %}
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h2 class="title-1 m-b-25">Série</h2>
+                            <a href={{ path('adminaddserie') }}><button type="button" class="btn btn-primary m-b-25 text-right">Add</button></a>
+                            <div class="table-responsive table--no-card m-b-40">
+                                <table class="table table-borderless table-striped table-earning">
+                                    <thead>
+                                    <tr>
+                                        <th>id</th>
+                                        <th>titre</th>
+                                        <th>acteur</th>
+                                        <th>genre</th>
+                                        <th>producteur</th>
+                                        <th>resume</th>
+                                        <th>Update</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if serie == [] %}
+                                        <p>Vous n'avez aucune série !</p>
+                                    {% else %}
+                                        {% for series in serie %}
+                                            <tr>
+                                                <td>{{ series.id }}</td>
+                                                <td>{{ series.nom }}</td>
+                                                <td>{{ series.acteur.Prenom }}</td>
+                                                <td>
+                                                {% for genre in series.Genre %}
+                                                    {{ genre.Genre }}
+                                                {% endfor %}
+                                                </td>
+                                                <td>{{ series.producteur.Prenom }}</td>
+                                                <td>{{ series.resume.id }}</td>
+                                                <td><a href={{ path('serieUpdate',{ 'id': series.id }) }}><button type="button" class="btn btn-success">Update</button></a></td>
+                                                <td><a href={{ path('serieDelete',{ 'id': series.id }) }}><button type="button" class="btn btn-danger">Delete</button></a></td>
+                                            </tr>
+                                        {% endfor %}
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+{% endblock %}

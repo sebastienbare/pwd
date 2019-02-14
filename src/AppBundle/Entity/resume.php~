@@ -1,0 +1,72 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * resume
+ *
+ * @ORM\Table(name="resume")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\resumeRepository")
+ */
+class resume
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="resume", type="text")
+     */
+    private $resume;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="author", type="integer")
+     */
+    private $author;
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set resume
+     *
+     * @param string $resume
+     *
+     * @return resume
+     */
+    public function setResume($resume)
+    {
+        $this->resume = $resume;
+
+        return $this;
+    }
+
+    /**
+     * Get resume
+     *
+     * @return string
+     */
+    public function getResume()
+    {
+        return $this->resume;
+    }
+}
+

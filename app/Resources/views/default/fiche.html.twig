@@ -1,0 +1,67 @@
+{% extends 'base1.html.twig' %}
+
+{% block li %}
+    {% if session == [] %}
+        <li><a href={{ path('fos_user_security_login') }}>Se connecter</a></li>
+        <li><a href={{ path('fos_user_registration_register') }}>S'inscrire</a></li>
+    {% else %}
+        <li><a href={{ path('fos_user_security_logout') }}>Se déconnecter</a></li>
+        <li><a href={{ path('profile') }}>Profile</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="styled-heading">
+                    <h3>{{ serie.Nom }}</h3>
+                    {% set i = 0 %}
+                    {% for votes in vote %}
+                        {% if votes.serie.Id == serie.Id and i == 0%}
+                            {% if session != [] %}
+                                <td><a href={{ path('editvote',{ 'id': vote.0.Id }) }}><button type="button" class="btn btn-success">Modifier le vote</button></a></td>
+                            {% endif %}
+                            {% set i = 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if i == 0 and session != [] %}
+                        <td><a href={{ path('addvote',{ 'idSerie': serie.Id }) }}><button type="button" class="btn btn-primary">Voter</button></a></td>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="row effect">
+            <div class="row center">
+                <div class="col-md-4">
+                    <div class="find-place-img_wrap">
+                        <div class="grid">
+                            <figure class="effect-ruby">
+                                <img src="../images/{{ serie.Image.Source }}" class="img-fluid" alt="{{ serie.Image.Alt }}" />
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <p>{{ serie.Resume }}</p>
+            </div>
+        </div>
+        <div class="row col-md-12 effect1">
+            <div class="col-md-3 effect">
+                {% for genr in serie.Genre %}
+                    <p><a href={{ path('genre') }}>{{ genr.genre }}</a></p>
+                {% endfor %}
+            </div>
+            <div class="col-md-3">
+                <p><a href={{ path('producteur') }}>{{ serie.Producteur.Nom }} {{ serie.Producteur.Prenom }}</a></p>
+            </div>
+            <div class="col-md-3">
+                <p><a href={{ path('acteur') }}>{{ serie.Acteur.Nom }} {{ serie.Acteur.Prenom }}</a></p>
+            </div>
+            <div class="col-md-2">
+                <p><a href="#">Note Moyenne: {{ note }}/10</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

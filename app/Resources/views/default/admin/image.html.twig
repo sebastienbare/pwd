@@ -1,0 +1,38 @@
+{% extends 'default/admin/base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="title-1 m-b-25">Image</h2>
+            <a href={{ path('addimage') }}><button type="button" class="btn btn-primary m-b-25 text-right">Add</button></a>
+            <div class="table-responsive table--no-card m-b-40">
+                <table class="table table-borderless table-striped table-earning">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Source</th>
+                        <th>Alt</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% if image == [] %}
+                        <p>Vous n'avez aucune image !</p>
+                    {% else %}
+                        {% for images in image %}
+                            <tr>
+                                <td>{{ images.id }}</td>
+                                <td>{{ images.source }}</td>
+                                <td>{{ images.alt }}</td>
+                                <td><a href={{ path('imageUpdate',{ 'id': images.id }) }}><button type="button" class="btn btn-success">Update</button></a></td>
+                                <td><a href={{ path('imageDelete',{ 'id': images.id }) }}><button type="button" class="btn btn-danger">Delete</button></a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

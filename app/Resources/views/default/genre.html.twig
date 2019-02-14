@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block li %}
+    {% if session == [] %}
+        <li><a href={{ path('fos_user_security_login') }}>Se connecter</a></li>
+        <li><a href={{ path('fos_user_registration_register') }}>S'inscrire</a></li>
+    {% else %}
+        <li><a href={{ path('fos_user_security_logout') }}>Se déconnecter</a></li>
+        <li><a href={{ path('profile') }}>Profile</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="styled-heading">
+                    <h3>Liste des genres :</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 list-effect">
+                {% for genres in genre %}
+                <p><a href={{ path ('genre',{'genre': genres.genre}) }}>{{ genres.genre }}</a></p>
+                {% endfor %}
+            </div>
+            <div class="col-md-10">
+                {% for series in serie %}
+                <div class="row">
+                    <div class="col-md-1">
+                        <div class="find-place-img_wrap">
+                            <div class="grid">
+                                <figure class="effect-ruby">
+                                    <img src="images/{{ series.Image.Source }}" class="img-fluid icon" alt="{{ series.Image.Alt }}" />
+                                </figure>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2 effect">
+                        <h5><a href={{ path ('fiche',{ 'id': series.id} ) }}>{{ series.Nom }}</a></h5>
+                    </div>
+                    <div class="col-md-3 effect">
+                        {% for genr in series.Genre %}
+                            <p><a href={{ path('genre') }}>{{ genr.genre }}</a></p>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-3 effect">
+                        <p><a href={{ path('acteur') }}>{{ series.Acteur.Nom }} {{ series.Acteur.Prenom }}</a></p>
+                    </div>
+                    <div class="col-md-3 effect">
+                        <p><a href={{ path('producteur') }}>{{ series.Producteur.Nom }} {{ series.Producteur.Prenom }}</a></p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
